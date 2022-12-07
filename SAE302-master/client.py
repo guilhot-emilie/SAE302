@@ -45,3 +45,9 @@ class server:
                 self.__verrou.release()
         else:
             print("Pas de connexion")
+
+    def recep(self, msg):
+        msg = ""
+        while msg != "deco":
+            msg = self.__socket.recv(1024).decode()
+            print("Message reçu:", msg)

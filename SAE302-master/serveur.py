@@ -11,33 +11,12 @@ print('En attente du client')
 conn, address = server_socket.accept()
 print(f'Client connecté {address}')
 
-message = ""
-while message != "deco":
-    # Réception du message du client
-    msgb = conn.recv(1024) # message en by
-    message = msgb.decode()
-    print(f"Message du client : {message}")
-
-    # J'envoie un message
-    #reply = input("Saisir un message : ")
-    conn.send(message.encode())
-    print(f"Message {message} envoyé")
-
-time.sleep(2)
-
-# Fermeture
-conn.close()
-print("Fermeture de la socket client")
-server_socket.close()
-print("Fermeture de la socket serveur")
-
-
 msg = ""
 msgserv = ""
-while msg !="arret" and msgserv !="arret" :
+while msg !="deco":
     conn, address = server_socket.accept()
     msgserv = msg = ""
-    while msg !="bye" and msgserv !="bye" and msg !="arret" and msgserv !="arret" :
+    while msg !="deco":
         msg= conn.recv(1024).decode()
         print("Message reçu:",msg)
         if msg == "bye":
@@ -45,5 +24,8 @@ while msg !="arret" and msgserv !="arret" :
         else:
             msgserv = input("Entrez votre message:")
             conn.send(msgserv.encode())
+    time.sleep(2)
     conn.close()
+    print("Fermeture de la socket client")
 server_socket.close()
+print("Fermeture de la socket serveur")
