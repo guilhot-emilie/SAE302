@@ -1,4 +1,6 @@
 import platform, cpuinfo
+#télécharger py-cpuinfo
+#psutils
 
 print("="*40, "System Information", "="*40)
 uname = platform.uname()
