@@ -1,4 +1,5 @@
 import socket
+import time
 
 port = 4004
 
@@ -10,15 +11,19 @@ print('En attente du client')
 conn, address = server_socket.accept()
 print(f'Client connecté {address}')
 
-# Réception du message du client
-msgb = conn.recv(1024) # message en by
-message = msgb.decode()
-print(f"Message du client : {message}")
+message = ""
+while message != "deco":
+    # Réception du message du client
+    msgb = conn.recv(1024) # message en by
+    message = msgb.decode()
+    print(f"Message du client : {message}")
 
-# J'envoie un message
-reply = input("Saisir un message : ")
-conn.send(reply.encode())
-print(f"Message {reply} envoyé")
+    # J'envoie un message
+    #reply = input("Saisir un message : ")
+    conn.send(message.encode())
+    print(f"Message {message} envoyé")
+
+time.sleep(2)
 
 # Fermeture
 conn.close()
