@@ -16,6 +16,7 @@ msgserv = ""
 while msg !="deco" :
     msg = input("Entrez votre message:")
     hostsock1.send(msg)
+    print ("msg envoyé")
     hostsock1.recep(msgserv)
     #msgserv = client_socket.recv(1024).decode()
     #print("Message reçu:",msgserv)
