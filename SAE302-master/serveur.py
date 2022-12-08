@@ -19,8 +19,8 @@ while msg !="deco":
     while msg !="deco":
         msg= conn.recv(1024).decode()
         print("Message reçu:",msg)
-        if msg == "bye":
-            conn.send("bye".encode())
+        if msg == "deco":
+            conn.send("deco".encode())
         else:
             msgserv = input("Entrez votre message:")
             conn.send(msgserv.encode())

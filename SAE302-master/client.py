@@ -36,18 +36,18 @@ class server:
             try:
                 self.__verrou.acquire()
                 self.__socket.send(msg.encode())
-                msg = self.__socket.recv(1024).decode()
+                #msg = self.__socket.recv(1024).decode()
             except socket.error as err:
                 print(f"erreur = {err}")
-            else:
-                print(f"Reponse du serveur : {msg}")
+            #else:
+            #print(f"Reponse du serveur : {msg}")
             finally:
                 self.__verrou.release()
         else:
             print("Pas de connexion")
 
-    def recep(self, msg):
-        msg = ""
-        while msg != "deco":
-            msg = self.__socket.recv(1024).decode()
-            print("Message reçu:", msg)
+    def recep(self, msgserv):
+        msgserv = ""
+        while msgserv != "deco":
+            msgserv = self.__socket.recv(1024).decode()
+            print("Message reçu:", msgserv)
