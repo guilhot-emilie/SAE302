@@ -6,9 +6,8 @@ hostsock1 = client(host1, 5005)
 hostsock1.connect()
 time.sleep(2)
 
-msg = ""
-msgserv = ""
-while msg != "deco" and msgserv != "deco":
+msg = msgserv = ""
+while msg != "kill" and msg != "reset" and msg != "disconnect":
     msg = input("Entrez votre message:")
     hostsock1.send(msg)
     hostsock1.recep(msgserv)

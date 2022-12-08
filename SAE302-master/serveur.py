@@ -1,28 +1,44 @@
 import socket
-import time
 
-port = 5005
-server_socket = socket.socket()
-server_socket.bind(("0.0.0.0", port))
-server_socket.listen(1)
+def serveur():
+    msg = msgserv = ""
+    port = 5005
+    conn = None
+    server_socket = None
+    while msg != "kill" :
+        msg = msgserv = ""
+        server_socket = socket.socket()
+        """ options qui permette de réutiliser l'adresse et le port rapidement"""
+        server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
+        server_socket.bind(("0.0.0.0", port))
 
-print('En attente du client')
-conn, address = server_socket.accept()
-print(f'Client connecté {address}')
+        server_socket.listen(1)
+        print('Serveur en attente de connexion')
+        while msg != "kill" and msg != "reset":
+            msgserv = msg = ""
+            try :
+                conn, addr = server_socket.accept()
+                print(addr)
+            except ConnectionError:
+                print ("Erreur de connection")
+                break
+            else :
+                while msg != "kill" and msg != "reset" and msg != "disconnect":
+                    msg = conn.recv(1024).decode()
+                    print('Message du Client: ', msg)
+                    msgserv = input('Entrez votre message: ')
+                    """ 
+                    le serveur va ici récupere les commandes du client et lui renvoyer. Dans la suite de la SAÉ, 
+                    le serveur fera pareil mais en renvoyant le résultat des commandes demandées par le client.
+                    """
+                    conn.send(msgserv.encode())
+                conn.close()
+        print ("Connection closed")
+        server_socket.close()
+        print ("Server closed")
 
-msg = ""
-msgserv = ""
+# Coder les commande ici
 
-while msg !="deco":
-    msg= conn.recv(1024).decode()
-    print("Message reçu:",msg)
-    if msg == "deco":
-        conn.send("deco".encode())
-    else:
-        msgserv = input("Entrez votre message:")
-        conn.send(msgserv.encode())
-time.sleep(2)
-conn.close()
-print("Fermeture de la socket client")
-server_socket.close()
-print("Fermeture de la socket serveur")
+if __name__ == '__main__':
+    serveur()
