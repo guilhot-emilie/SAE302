@@ -43,7 +43,5 @@ class client:
             print("Pas de connexion")
 
     def recep(self, msgserv):
-        msgserv = ""
-        while msgserv != "deco":
             msgserv = self.__socket.recv(1024).decode()
             print("Message reçu:", msgserv)

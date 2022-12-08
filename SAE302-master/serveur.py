@@ -10,7 +10,7 @@ def serveur():
         server_socket = socket.socket()
         """ options qui permette de réutiliser l'adresse et le port rapidement"""
         server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
+        #server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
         server_socket.bind(("0.0.0.0", port))
 
         server_socket.listen(1)
