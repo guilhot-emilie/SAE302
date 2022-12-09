@@ -5,9 +5,10 @@ class client:
         self.__port = port
         self.__host = host
         self.__socket = None
-        # self.verrou = threading.Lock()
-        # self.verrou.acquire()
-        # self.verrou.release()
+
+    def connect(self):
+        self.__tconnected = threading.Thread(target = self.__connected)
+        self.__tconnected.start()
 
     def __connected(self):
         self.__socket = socket.socket()
@@ -18,12 +19,8 @@ class client:
 
     def close(self):
         self.__tsend.join()
-        self.__send("deco")
+        self.__send("kill")
         self.__socket.close()
-
-    def connect(self):
-        self.__tconnected = threading.Thread(target = self.__connected)
-        self.__tconnected.start()
 
     def send(self, msg):
         self.__tsend = threading.Thread(target = self.__send, args=[msg])

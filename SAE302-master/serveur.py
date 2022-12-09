@@ -14,19 +14,20 @@ def serveur():
         server_socket.bind(("0.0.0.0", port))
 
         server_socket.listen(1)
-        print('Serveur en attente de connexion')
+        print('Serveur en attente de connexion...')
         while msg != "kill" and msg != "reset":
             msgserv = msg = ""
-            try :
+            try:
                 conn, addr = server_socket.accept()
-                print(addr)
+                print("Connexion avec le client établie", addr)
             except ConnectionError:
-                print ("Erreur de connection")
+                print("Erreur de connexion")
                 break
-            else :
+            else:
                 while msg != "kill" and msg != "reset" and msg != "disconnect":
                     msg = conn.recv(1024).decode()
                     print('Message du Client: ', msg)
+                    conn.send(msg.encode())
                     msgserv = input('Entrez votre message: ')
                     """ 
                     le serveur va ici récupere les commandes du client et lui renvoyer. Dans la suite de la SAÉ, 
@@ -34,9 +35,9 @@ def serveur():
                     """
                     conn.send(msgserv.encode())
                 conn.close()
-        print ("Connection closed")
+        print("Fin de la connexion")
         server_socket.close()
-        print ("Server closed")
+        print("Serveur fermé")
 
 # Coder les commande ici
 
