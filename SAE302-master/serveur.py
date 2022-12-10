@@ -27,7 +27,11 @@ def serveur():
                 while msg != "kill" and msg != "reset" and msg != "disconnect":
                     msg = conn.recv(1024).decode()
                     print('Message du Client: ', msg)
-                    conn.send(msg.encode())
+                    if msg == "kill" or msg == "reset" or msg == "disconnect":
+                        msgserv = "kill"
+                        conn.send(msgserv.encode())
+                        break
+
                     msgserv = input('Entrez votre message: ')
                     """ 
                     le serveur va ici récupere les commandes du client et lui renvoyer. Dans la suite de la SAÉ, 

@@ -41,7 +41,7 @@ class client:
 
     def recep(self, msgserv):
         msgserv = self.__socket.recv(1024).decode()
-        print("Message reçu:", msgserv)
-
-    def rb(self, msg):
-        msg = self.__socket.recv(1024).decode()
+        if msgserv != "kill" and msgserv != "reset" and msgserv != "disconnect":
+            print("Message reçu:", msgserv)
+        else:
+            pass
