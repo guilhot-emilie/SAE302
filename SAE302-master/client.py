@@ -40,5 +40,8 @@ class client:
             print("Pas de connexion")
 
     def recep(self, msgserv):
-            msgserv = self.__socket.recv(1024).decode()
-            print("Message reçu:", msgserv)
+        msgserv = self.__socket.recv(1024).decode()
+        print("Message reçu:", msgserv)
+
+    def rb(self, msg):
+        msg = self.__socket.recv(1024).decode()

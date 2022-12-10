@@ -1,4 +1,4 @@
-import time
+import time, socket
 from client import client
 
 host1 = "127.0.0.1" #input("adresse du 1er serveur:")
@@ -10,5 +10,6 @@ msg = msgserv = ""
 while msg != "kill" and msg != "reset" and msg != "disconnect":
     msg = input("Entrez votre message:")
     hostsock1.send(msg)
+    hostsock1.rb(msg)
     hostsock1.recep(msgserv)
 hostsock1.close()
