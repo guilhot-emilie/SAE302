@@ -1,4 +1,5 @@
-import socket
+import platform, psutil
+from socket import *
 
 class serveur():
     def serveur():
@@ -44,7 +45,16 @@ class serveur():
             server_socket.close()
             print("Serveur fermé")
 
-# Coder les commande ici
+    def cmd(self):
+        uname = platform.uname()
+        print(f"OS: {uname.system} {uname.version}")
+        print(f"Nom du pc: {uname.node}")
+        print("adresse IP", gethostbyname(gethostname()))
+        print("cpu pourcentage:", psutil.cpu_percent(1), "%")
+        print("RAM totale:", round(psutil.virtual_memory().total / (1024.0 ** 3), 2), "GB")
+        print("RAM utilisée:", round(psutil.virtual_memory().used / (1024.0 ** 3), 2), "GB")
+        print("RAM libre:", round(psutil.virtual_memory().free / (1024.0 ** 3), 2), "GB")
+
 
 if __name__ == '__main__':
     serveur.serveur()
