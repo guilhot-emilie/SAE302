@@ -1,5 +1,6 @@
 import time, socket
 from client import client
+#from serveur import serveur
 
 host = "127.0.0.1" #input("adresse du 1er serveur:")
 host1 = client(host, 5005)
