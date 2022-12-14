@@ -5,8 +5,8 @@ uname = platform.uname()
 
 def commande(msg):
     if msg == "OS":
-        conn.send(f"OS: {uname.system} {uname.version}").encode()
-        print(f"OS: {uname.system} {uname.version}")
+        msgserv = "OS:" + " " + str(uname.system) + " " + str(uname.version)
+        print(msgserv)
     elif msg == "Name":
         print(f"Nom du pc: {uname.node}")
     elif msg == "IP":
@@ -19,3 +19,4 @@ def commande(msg):
         print("RAM libre:", round(psutil.virtual_memory().free / (1024.0 ** 3), 2), "GB")
     else:
         pass
+

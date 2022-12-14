@@ -28,19 +28,19 @@ class serveur():
                 else:
                     while msg != "kill" and msg != "reset" and msg != "disconnect":
                         msg = conn.recv(1024).decode()
-                        commande(msg)
                         print('Message du Client: ', msg)
+
                         if msg == "kill" or msg == "reset" or msg == "disconnect":
                             msgserv = "kill"
                             conn.send(msgserv.encode())
                             break
-
-                        msgserv = input('Entrez votre message: ')
-                        """ 
-                        le serveur va ici récupere les commandes du client et lui renvoyer. Dans la suite de la SAÉ, 
-                        le serveur fera pareil mais en renvoyant le résultat des commandes demandées par le client.
-                        """
-                        conn.send(msgserv.encode())
+                        if msg == 'OS' or msg == 'Name' or msg == 'IP' or msg == 'cpu' or msg == 'ram':
+                            commande(msg)
+                            print(msgserv)
+                            conn.send(msgserv.encode())
+                        else:
+                            msgserv = input('Entrez votre message: ')
+                            conn.send(msgserv.encode())
                     conn.close()
             print("Fin de la connexion")
             server_socket.close()
