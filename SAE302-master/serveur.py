@@ -1,5 +1,6 @@
-import platform, psutil
-from socket import *
+import socket, platform, psutil
+from test import commande
+#from socket import *,socket
 
 class serveur():
     def serveur():
@@ -12,7 +13,6 @@ class serveur():
             server_socket = socket.socket()
             """ options qui permette de réutiliser l'adresse et le port rapidement"""
             server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-            #server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
             server_socket.bind(("0.0.0.0", port))
 
             server_socket.listen(1)
@@ -28,6 +28,7 @@ class serveur():
                 else:
                     while msg != "kill" and msg != "reset" and msg != "disconnect":
                         msg = conn.recv(1024).decode()
+                        commande(msg)
                         print('Message du Client: ', msg)
                         if msg == "kill" or msg == "reset" or msg == "disconnect":
                             msgserv = "kill"
@@ -44,16 +45,6 @@ class serveur():
             print("Fin de la connexion")
             server_socket.close()
             print("Serveur fermé")
-
-    def cmd(self):
-        uname = platform.uname()
-        print(f"OS: {uname.system} {uname.version}")
-        print(f"Nom du pc: {uname.node}")
-        print("adresse IP", gethostbyname(gethostname()))
-        print("cpu pourcentage:", psutil.cpu_percent(1), "%")
-        print("RAM totale:", round(psutil.virtual_memory().total / (1024.0 ** 3), 2), "GB")
-        print("RAM utilisée:", round(psutil.virtual_memory().used / (1024.0 ** 3), 2), "GB")
-        print("RAM libre:", round(psutil.virtual_memory().free / (1024.0 ** 3), 2), "GB")
 
 
 if __name__ == '__main__':
