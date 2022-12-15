@@ -1,6 +1,6 @@
 import socket, platform, psutil
 from test import commande
-#from socket import *,socket
+#from socket import *
 
 class serveur():
     def serveur():
