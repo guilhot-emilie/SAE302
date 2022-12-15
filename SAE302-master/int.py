@@ -1,36 +1,73 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QGridLayout, QLabel, QLineEdit, QPushButton
+from PyQt5.QtWidgets import *
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        widget = QWidget()
-        self.setCentralWidget(widget)
-
+        qw = QWidget()
+        self.setCentralWidget(qw)
         grid = QGridLayout()
-        widget.setLayout(grid)
+        qw.setLayout(grid)
 
-        lab = QLabel("Saisir votre nom")
-        self.__text = QLineEdit("")
-        ok = QPushButton("Ok")
+        #Box
+        blocco = QGroupBox("Connexion")
+        blocco.setLayout(QGridLayout())
+        blocdis = QGroupBox("Discussion")
+        blocdis.setLayout(QGridLayout())
+        blocinfo = QGroupBox("Information Serveur")
+        blocinfo.setLayout(QGridLayout())
+
+        labip = QLabel("IP:")
+        labport = QLabel("Port:")
+        self.__textip = QLineEdit("")
+        self.__textport = QLineEdit("")
+        connexion = QPushButton("Connexion")
+        envoyer = QPushButton("Envoyer")
         quit = QPushButton("Quitter")
-        self.__bonjour = QLabel("")
+        aide = QPushButton("Aide")
+        #info
+        name = QLabel("Name")
+        ip = QLabel("IP")
+        os = QLabel("OS")
+        ram = QLabel("RAM")
+        cpu = QLabel("CPU")
+        croixname = QCheckBox()
+        croixip = QCheckBox()
+        croixos = QCheckBox()
+        croixram = QCheckBox()
+        croixcpu = QCheckBox()
+
+        # bloc dans grid layout
+        grid.addWidget(blocco, 0, 0, 4, 0)
+        grid.addWidget(blocdis, 4, 0, 10, 6)
+        grid.addWidget(blocinfo, 4, 6, 8, 4)
 
         #  les composants au grid layout
-        grid.addWidget(lab, 0, 0)
-        grid.addWidget(self.__text, 1, 0)
-        grid.addWidget(ok, 2, 0)
-        grid.addWidget(self.__bonjour, 3, 0)
-        grid.addWidget(quit, 4, 0)
+        blocco.layout().addWidget(labip, 0, 0)
+        blocco.layout().addWidget(labport, 0, 2)
+        blocco.layout().addWidget(self.__textip, 0, 1)
+        blocco.layout().addWidget(self.__textport, 0, 3)
+        blocco.layout().addWidget(connexion, 0, 4)
+        blocinfo.layout().addWidget(name, 1, 1)
+        blocinfo.layout().addWidget(ip, 2, 1)
+        blocinfo.layout().addWidget(os, 3, 1)
+        blocinfo.layout().addWidget(cpu, 4, 1)
+        blocinfo.layout().addWidget(ram, 5, 1)
+        blocinfo.layout().addWidget(croixname, 1, 2)
+        blocinfo.layout().addWidget(croixip, 2, 2)
+        blocinfo.layout().addWidget(croixos, 3, 2)
+        blocinfo.layout().addWidget(croixcpu, 4, 2)
+        blocinfo.layout().addWidget(croixram, 5, 2)
+        blocinfo.layout().addWidget(envoyer, 6, 3)
+        grid.addWidget(aide, 12, 7)
+        grid.addWidget(quit, 12, 8)
 
-        ok.clicked.connect(self._actionOk)
+
         quit.clicked.connect(self._actionQuitter)
 
-        self.setWindowTitle("Une première fenêtre")
+        self.setWindowTitle("tchat serveur")
 
-    def _actionOk(self):
-        self.__bonjour.setText(f"Bonjour {self.__text.text()}")
 
     def _actionQuitter(self):
         QCoreApplication.exit(0)

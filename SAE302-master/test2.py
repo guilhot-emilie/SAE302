@@ -1,13 +1,23 @@
-import socket
-from client import server
+import sys
+from PyQt5.QtWidgets import *
 
 
-host = input("hostname:")
-port = int(input("port:"))
-heim = server(host, port)
-heim.connected()
-rep = heim.send("coucou")
-if rep =="":
-    print("serveur non connecté")
-else:
-    print(rep)
+
+widgets = [
+            QCheckBox,
+            QLabel,
+            QLineEdit,
+]
+
+app = QApplication(sys.argv)
+root = QWidget()
+grid = QHBoxLayout()
+toolbar = QToolBar("My main toolbar")
+for w in widgets:
+    grid.addWidget(w())
+root.setLayout(grid)
+#root.resize(250, 250)
+root.setWindowTitle("Hello world!")
+root.show()
+if __name__ == '__main__':
+    sys.exit(app.exec_())
