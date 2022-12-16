@@ -1,7 +1,6 @@
 import socket, platform, psutil
 from test import commande
-#from socket import *
-
+uname = platform.uname()
 class serveur():
     def serveur():
         msg = msgserv = ""
@@ -29,18 +28,26 @@ class serveur():
                     while msg != "kill" and msg != "reset" and msg != "disconnect":
                         msg = conn.recv(1024).decode()
                         print('Message du Client: ', msg)
-
                         if msg == "kill" or msg == "reset" or msg == "disconnect":
                             msgserv = "kill"
                             conn.send(msgserv.encode())
                             break
-                        if msg == 'OS' or msg == 'Name' or msg == 'IP' or msg == 'cpu' or msg == 'ram':
-                            commande(msg)
-                            print(msgserv)
+                        if msg == "os":
+                            msgserv = "OS: " + " " + str(uname.system) + " " + str(uname.version)
+                            conn.send(msgserv.encode())
+                        elif msg == "name":
+                            msgserv = "Nom du pc :" + str(uname.node)
+                            conn.send(msgserv.encode())
+                        elif msg == "cpu":
+                            msgserv = "cpu pourcentage :" + str(psutil.cpu_percent(1)) + "%"
+                            conn.send(msgserv.encode())
+                        elif msg == "ram":
+                            msgserv = "RAM totale :" + str(round(psutil.virtual_memory().total / (1024.0 ** 3), 2)) + "GB\n" + "RAM utilisée :" + str(round(psutil.virtual_memory().used / (1024.0 ** 3), 2)) + "GB\n" "RAM libre :" + str(round(psutil.virtual_memory().free / (1024.0 ** 3), 2)) + "GB"
                             conn.send(msgserv.encode())
                         else:
                             msgserv = input('Entrez votre message: ')
                             conn.send(msgserv.encode())
+                            print("msg envoyé")
                     conn.close()
             print("Fin de la connexion")
             server_socket.close()
