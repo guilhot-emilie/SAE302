@@ -1,5 +1,4 @@
 import socket, platform, psutil
-from test import commande
 uname = platform.uname()
 class serveur():
     def serveur():
