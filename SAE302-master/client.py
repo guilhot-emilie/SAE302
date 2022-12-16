@@ -1,6 +1,6 @@
 import socket, threading, sys, time
 from PyQt5.QtWidgets import *
-
+from aide import Aide
 class client(QMainWindow):
     def __init__(self, host, port):
         super().__init__()
@@ -67,6 +67,7 @@ class client(QMainWindow):
         infoos.clicked.connect(self.infoos)
         infocpu.clicked.connect(self.infocpu)
         inforam.clicked.connect(self.inforam)
+        aide.clicked.connect(self.aide)
 
         self.setWindowTitle("tchat serveur")
 
@@ -135,6 +136,10 @@ class client(QMainWindow):
         msgserv = self.__socket.recv(1024).decode()
         if msgserv != "kill" and msgserv != "reset" and msgserv != "disconnect":
             self.__conv.append("Message reçu: " + msgserv)
+
+    def aide(self):
+        self.__aide = Aide()
+        self.__aide.show()
 
 
 if __name__ == '__main__':
