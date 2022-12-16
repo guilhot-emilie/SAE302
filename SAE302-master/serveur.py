@@ -40,9 +40,7 @@ class serveur():
                             msgserv = "cpu pourcentage :" + str(psutil.cpu_percent(1)) + "%"
                             conn.send(msgserv.encode())
                         elif msg == "ram":
-                            msgserv = "RAM totale :" + str(round(psutil.virtual_memory().total / (1024.0 ** 3), 2)) + "GB\n" \
-                                      + "RAM utilisée :" + str(round(psutil.virtual_memory().used / (1024.0 ** 3), 2)) + "GB\n"\
-                                      "RAM libre :" + str(round(psutil.virtual_memory().free / (1024.0 ** 3), 2)) + "GB"
+                            msgserv = "RAM totale :" + str(round(psutil.virtual_memory().total / (1024.0 ** 3), 2)) + "GB\n" + "RAM utilisée :" + str(round(psutil.virtual_memory().used / (1024.0 ** 3), 2)) + "GB\n" + "RAM libre :" + str(round(psutil.virtual_memory().free / (1024.0 ** 3), 2)) + "GB"
                             conn.send(msgserv.encode())
                         else:
                             msgserv = input('Entrez votre message: ')
